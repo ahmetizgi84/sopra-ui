@@ -81,6 +81,7 @@ function RecoverMyWalletTab() {
                   placeholder="wallet address"
                   value={values.addressToBeRecovered}
                   onChange={handleChange}
+                  disabled={loading}
                 />
                 <FormErrorMessage>{errors.addressToBeRecovered}</FormErrorMessage>
               </FormControl>
@@ -100,6 +101,7 @@ function RecoverMyWalletTab() {
                   placeholder="new wallet address"
                   value={values.newWalletAddress}
                   onChange={handleChange}
+                  disabled={loading}
                 />
                 <FormErrorMessage>{errors.newWalletAddress}</FormErrorMessage>
               </FormControl>

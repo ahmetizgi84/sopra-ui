@@ -137,6 +137,7 @@ function CreateWalletContent() {
                           name={`guardians[${index}].publicKey`}
                           value={guardian.publicKey}
                           onChange={handleChange}
+                          disabled={loading}
                         />
                         {index > 0 && (
                           <IconButton colorScheme="red" icon={<Icon as={FaMinus} onClick={() => remove(index)} />} />
@@ -175,7 +176,7 @@ function CreateWalletContent() {
                           } else {
                             toast({
                               title: 'Warning!',
-                              description: "You can't add recovery addresses more than 5!",
+                              description: "You can't add guardian address more than 5!",
                               status: 'warning'
                             });
                           }
@@ -202,6 +203,7 @@ function CreateWalletContent() {
             type="number"
             value={values.numberOfGuards}
             onChange={handleChange}
+            disabled={loading}
           />
           <FormErrorMessage>{errors.numberOfGuards}</FormErrorMessage>
         </FormControl>
