@@ -1,3 +1,4 @@
+import { Alert } from '@chakra-ui/react';
 import Web3 from 'web3';
 import * as yup from 'yup';
 
@@ -12,6 +13,15 @@ export const toHex = num => {
   const val = Number(num);
   return '0x' + val.toString(16);
 };
+
+export async function copyToClipboard(info) {
+  navigator.clipboard
+    .writeText(info)
+    .then(() => {})
+    .catch(() => {
+      Alert("Couldn't copied!");
+    });
+}
 
 const verifyAddress = address => {
   if (address) {

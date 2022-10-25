@@ -20,7 +20,7 @@ const Footer = () => {
           </GridItem>
         </Grid>
         <Text fontSize="sm" mt={9} color="whiteAlpha.700">
-          ©{new Date().getFullYear()} SOPRA digital recovery wallets
+          ©{new Date().getFullYear()} SOPRA digital recovery wallet
         </Text>
       </Container>
     </Flex>

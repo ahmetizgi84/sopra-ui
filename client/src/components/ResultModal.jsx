@@ -2,7 +2,6 @@ import {
   Alert,
   AlertDescription,
   AlertIcon,
-  AlertTitle,
   Button,
   Flex,
   Icon,
@@ -19,12 +18,14 @@ import {
   VStack
 } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
+import { copyToClipboard } from '../utils';
 import { FaCopy } from 'react-icons/fa';
 
 function ResultModal({ isOpen, onClose }) {
   const toast = useToast();
 
-  const copyToClipboard = value => {
+  const copy = value => {
+    copyToClipboard(value);
     toast({
       title: 'Copied!',
       description: value,
@@ -61,7 +62,7 @@ function ResultModal({ isOpen, onClose }) {
                   colorScheme="blue"
                   size="sm"
                   icon={<Icon as={FaCopy} />}
-                  onClick={() => copyToClipboard('0x9F331f626378DE66fE4bc2d382EAb33F9542AD60')}
+                  onClick={() => copy('0x9F331f626378DE66fE4bc2d382EAb33F9542AD60')}
                 />
               </Tooltip>
             </Flex>
@@ -74,7 +75,7 @@ function ResultModal({ isOpen, onClose }) {
                   colorScheme="blue"
                   size="sm"
                   icon={<Icon as={FaCopy} />}
-                  onClick={() => copyToClipboard('f550dce3-3aa5-4c0f-91c5-d9f1f08e62cb')}
+                  onClick={() => copy('f550dce3-3aa5-4c0f-91c5-d9f1f08e62cb')}
                 />
               </Tooltip>
             </Flex>

@@ -18,7 +18,8 @@ import {
   IconButton,
   FormLabel,
   FormErrorMessage,
-  useDisclosure
+  useDisclosure,
+  useToast
 } from '@chakra-ui/react';
 import { IoIosCreate } from 'react-icons/io';
 import { ErrorMessage, FieldArray, FormikProvider, useFormik, Form } from 'formik';
@@ -40,6 +41,7 @@ const initialFormValues = {
 
 function CreateWalletContent() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
   const { loading, setLoading, chainId, isWalletConnected, connectWallet } = useDataContext();
   const formik = useFormik({
     enableReinitialize: false,
@@ -69,6 +71,11 @@ function CreateWalletContent() {
       setLoading(false);
       resetForm(initialFormValues);
       onOpen();
+      toast({
+        title: 'Success!',
+        description: 'New social recovery wallet has been created!',
+        status: 'success'
+      });
     }, 3000);
   };
 
