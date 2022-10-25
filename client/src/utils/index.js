@@ -45,3 +45,16 @@ export const CreateWalletAddressSchema = yup.object().shape({
     })
   )
 });
+
+export const RecoverMyWalletSchema = yup.object().shape({
+  addressToBeRecovered: yup
+    .string()
+    .trim()
+    .required('Required Field')
+    .test('test-address', 'Invalid wallet address!', addressToBeRecovered => verifyAddress(addressToBeRecovered)),
+  newWalletAddress: yup
+    .string()
+    .trim()
+    .required('Required Field')
+    .test('test-address', 'Invalid wallet address!', newWalletAddress => verifyAddress(newWalletAddress))
+});

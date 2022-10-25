@@ -23,7 +23,7 @@ import {
 } from '@chakra-ui/react';
 import { IoIosCreate } from 'react-icons/io';
 import { ErrorMessage, FieldArray, FormikProvider, useFormik, Form } from 'formik';
-import { FaPlus, FaMinus, FaInfoCircle } from 'react-icons/fa';
+import { FaPlus, FaMinus, FaInfoCircle, FaTrash } from 'react-icons/fa';
 
 import { useDataContext } from '../context/data-context';
 import { CreateWalletAddressSchema } from '../utils';
@@ -77,6 +77,10 @@ function CreateWalletContent() {
         status: 'success'
       });
     }, 3000);
+  };
+
+  const deleteFields = () => {
+    resetForm(initialFormValues);
   };
 
   const chainIcon = useMemo(() => {
@@ -147,11 +151,37 @@ function CreateWalletContent() {
                   );
                 })}
 
-                <Flex mt={5} justifyContent="flex-end">
+                <Flex mt={5} justifyContent="flex-end" gap={3}>
+                  {values.guardians.length > 2 ? (
+                    <Button
+                      leftIcon={<Icon as={FaTrash} />}
+                      colorScheme="red"
+                      type="button"
+                      variant="solid"
+                      onClick={deleteFields}>
+                      Clear All
+                    </Button>
+                  ) : null}
+
                   <IconButton
                     colorScheme="blue"
                     type="button"
-                    icon={<Icon as={FaPlus} onClick={() => push({ publicKey: '' })} />}
+                    icon={
+                      <Icon
+                        as={FaPlus}
+                        onClick={() => {
+                          if (values.guardians.length <= 4) {
+                            push({ publicKey: '' });
+                          } else {
+                            toast({
+                              title: 'Warning!',
+                              description: "You can't add recovery addresses more than 5!",
+                              status: 'warning'
+                            });
+                          }
+                        }}
+                      />
+                    }
                   />
                 </Flex>
               </>

@@ -1,14 +1,14 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 
 import WalletTab from './WalletTab';
-import GuardsTab from './GuardsTab';
+import RecoverMyWalletTab from './RecoverMyWalletTab';
 
 function Tabbar() {
   return (
     <Tabs align="center" mt={12}>
       <TabList>
         <Tab>New Recovery Wallet</Tab>
-        <Tab>Save My Wallet</Tab>
+        <Tab>Recover My Wallet</Tab>
       </TabList>
 
       <TabPanels>
@@ -16,7 +16,7 @@ function Tabbar() {
           <WalletTab />
         </TabPanel>
         <TabPanel>
-          <GuardsTab />
+          <RecoverMyWalletTab />
         </TabPanel>
       </TabPanels>
     </Tabs>

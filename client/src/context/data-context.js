@@ -25,8 +25,7 @@ const initialState = {
   library: null,
   network: null,
   chainId: undefined,
-  verified: undefined,
-  numberOfGuardians: 1
+  verified: undefined
 };
 
 const reducer = (state, { type, payload }) => {
@@ -53,8 +52,6 @@ const reducer = (state, { type, payload }) => {
       return { ...state, signature: payload };
     case 'SET_VERIFIED':
       return { ...state, verified: payload };
-    case 'SET_NUMBER_OF_GUARDIANS':
-      return { ...state, numberOfGuardians: payload };
     case 'CLEAR_ALL_DATA':
       return { ...state, provider: null, isWalletConnected: false, walletAddress: '', chainId: null };
 
@@ -77,8 +74,7 @@ const DataProvider = ({ children }) => {
     message,
     signedMessage,
     signature,
-    verified,
-    numberOfGuardians
+    verified
   } = state;
   const toast = useToast();
 
@@ -125,10 +121,6 @@ const DataProvider = ({ children }) => {
 
   const setVerified = useCallback(_isVerified => {
     dispatch({ type: 'SET_VERIFIED', payload: _isVerified });
-  }, []);
-
-  const setNumberOfGuardians = useCallback(_guardianNumber => {
-    dispatch({ type: 'SET_NUMBER_OF_GUARDIANS', payload: _guardianNumber });
   }, []);
 
   const clearAllData = useCallback(() => {
@@ -274,7 +266,6 @@ const DataProvider = ({ children }) => {
     signature,
     message,
     verified,
-    numberOfGuardians,
     connectWallet,
     disconnectWallet,
     setLoading,
@@ -282,8 +273,7 @@ const DataProvider = ({ children }) => {
     handleNetwork,
     signMessage,
     handleInput,
-    verifyMessage,
-    setNumberOfGuardians
+    verifyMessage
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
