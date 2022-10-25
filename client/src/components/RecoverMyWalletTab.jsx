@@ -14,21 +14,52 @@ import {
   Text,
   Tooltip,
   IconButton,
-  useToast
+  useToast,
+  Heading,
+  Stack,
+  AlertTitle
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import React from 'react';
 import { FaCopy, FaMailBulk } from 'react-icons/fa';
 import { IoIosCreate } from 'react-icons/io';
-import { v4 as uuidv4 } from 'uuid';
 
 import { useDataContext } from '../context/data-context';
 import { RecoverMyWalletSchema } from '../utils';
 import TabLayout from './TabLayout';
 
+// DUMMY RESPONSE MODEL
+const responseModel = {
+  guardians: [
+    {
+      id: 1,
+      address: '0x9F331f626378DE66fE4bc2d382EAb33F9542AD60',
+      isApproved: 'success'
+    },
+    {
+      id: 2,
+      address: '0x9F331f626378DE66fE4bc2d382EAb33F9542AD60',
+      isApproved: 'success'
+    },
+    {
+      id: 3,
+      address: '0x9F331f626378DE66fE4bc2d382EAb33F9542AD60',
+      isApproved: 'error'
+    },
+    {
+      id: 4,
+      address: '0x9F331f626378DE66fE4bc2d382EAb33F9542AD60',
+      isApproved: 'success'
+    }
+  ],
+  allApproved: false,
+  isAlreadyRequested: true
+};
+
 function RecoverMyWalletTab() {
-  const [isVisible, setIsVisible] = React.useState(false);
   const toast = useToast();
+  const [isVisible, setIsVisible] = React.useState(false);
+  const [isApprovalVisible, setIsApprovalVisible] = React.useState(false);
   const { loading, setLoading, isWalletConnected, connectWallet } = useDataContext();
 
   const formik = useFormik({
@@ -46,17 +77,28 @@ function RecoverMyWalletTab() {
     },
     validationSchema: RecoverMyWalletSchema
   });
-  const { handleSubmit, handleChange, values, errors, resetForm, touched } = formik;
+  const { handleSubmit, handleChange, values, errors, touched } = formik;
 
+  // Request recovery process & create a link
   const createLinkHandler = values => {
     console.log('values: ', values);
-    setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
-      setIsVisible(true);
-      // resetForm({ addressToBeRecovered: '', newWalletAddress: '' });
-    }, 3500);
+    //if user hasn't requested recovery process yet.
+    if (!responseModel.isAlreadyRequested) {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        setIsVisible(true);
+      }, 3500);
+      // user has already requested recovery process.
+    } else {
+      setIsApprovalVisible(true);
+      toast({
+        title: 'Waiting!',
+        description: "You've already requested recovery process. Please wait approval of the guardians",
+        status: 'warning'
+      });
+    }
   };
 
   const copy = value => {
@@ -157,6 +199,42 @@ function RecoverMyWalletTab() {
                   Share Link
                 </Button>
               </Flex>
+            </VStack>
+          )}
+
+          {isApprovalVisible && (
+            <VStack align="start" w="100%" spacing={6}>
+              <Heading as="h4" size="sm">
+                Waiting for Approval
+              </Heading>
+
+              <Stack align="start" w="100%" spacing={3}>
+                {responseModel.guardians.map(guardian => (
+                  <Alert key={guardian.id} status={guardian.isApproved} variant="left-accent">
+                    <AlertIcon />
+                    {guardian.address}
+                  </Alert>
+                ))}
+              </Stack>
+
+              {responseModel.allApproved && (
+                <Alert
+                  status="success"
+                  variant="subtle"
+                  flexDirection="column"
+                  alignItems="center"
+                  justifyContent="center"
+                  textAlign="center"
+                  height="200px">
+                  <AlertIcon boxSize="40px" mr={0} />
+                  <AlertTitle mt={4} mb={1} fontSize="lg">
+                    Approved!
+                  </AlertTitle>
+                  <AlertDescription maxWidth="sm">
+                    All assests you own have been transfered to address that you define.
+                  </AlertDescription>
+                </Alert>
+              )}
             </VStack>
           )}
         </VStack>
