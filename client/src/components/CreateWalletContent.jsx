@@ -191,12 +191,12 @@ function CreateWalletContent() {
         </Box>
 
         <FormControl align="start" mt={5} isInvalid={errors.numberOfGuards && touched.numberOfGuards ? true : false}>
-          <Tooltip hasArrow label="Minimum number of accounts for which approval is requested" placement="top">
-            <FormLabel style={{ display: 'inline-flex' }} alignItems="center" gap={1}>
-              <span>Number of Guardians</span>
-              <Icon as={FaInfoCircle} color="blue.500" />
-            </FormLabel>
-          </Tooltip>
+          {/* <Tooltip hasArrow label="Minimum number of accounts for which approval is requested" placement="top"> */}
+          <FormLabel style={{ display: 'inline-flex' }} alignItems="center" gap={1}>
+            <span>Miniumum number of Guardians to Approve</span>
+            {/* <Icon as={FaInfoCircle} color="blue.500" /> */}
+          </FormLabel>
+          {/* </Tooltip> */}
           <Input
             name="numberOfGuards"
             placeholder="Number of guardians required"

@@ -44,7 +44,7 @@ const responseModel = {
     {
       id: 3,
       address: '0x9F331f626378DE66fE4bc2d382EAb33F9542AD60',
-      isApproved: 'error'
+      isApproved: 'success'
     },
     {
       id: 4,
@@ -52,7 +52,7 @@ const responseModel = {
       isApproved: 'success'
     }
   ],
-  allApproved: false,
+  allApproved: true,
   isAlreadyRequested: true
 };
 
@@ -189,13 +189,7 @@ function RecoverMyWalletTab() {
               </Box>
 
               <Flex justifyContent="flex-end" w="100%">
-                <Button
-                  isLoading={loading}
-                  loadingText="Creating"
-                  leftIcon={<Icon as={FaMailBulk} />}
-                  colorScheme="blue"
-                  type="submit"
-                  variant="solid">
+                <Button leftIcon={<Icon as={FaMailBulk} />} colorScheme="blue" type="submit" variant="solid">
                   Share Link
                 </Button>
               </Flex>

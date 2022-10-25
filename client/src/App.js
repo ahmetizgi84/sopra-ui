@@ -5,7 +5,12 @@ import Tabbar from './components/Tabbar';
 
 function App() {
   return (
-    <Flex bg="gray.50" minWidth="max-content" direction="column" justifyContent="space-between">
+    <Flex
+      bg="gray.50"
+      minWidth="max-content"
+      style={{ minHeight: '100vh' }}
+      direction="column"
+      justifyContent="space-between">
       <Box>
         <Navbar />
         <Tabbar />
